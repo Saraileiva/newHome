@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const FormRegister = () => {
-const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-});
-
-const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-    }));
-};
+    const [Name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Datos enviados:', formData);
+
+    if([Name, email, password].includes('')){
+        swal({
+            title: "Hay campos vacíos",
+            icon: "error",
+            button: "Aceptar"
+        });
+    }
+    console.log('Datos ingresados')
+
 };
 
 return (
@@ -34,8 +34,9 @@ return (
                 <input
                 type="text"
                 name="username"
-                value={formData.username}
-                onChange={handleChange}
+                placeholder="Nombre"
+                value={Name}
+                onChange={e => setName(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
                 />
             </label>
@@ -45,8 +46,9 @@ return (
                 <input
                 type="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                placeholder="Correo Electronico"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
 
                 />
@@ -57,8 +59,9 @@ return (
                 <input
                 type="password"
                 name="password"
-                value={formData.password}
-                onChange={handleChange}
+                placeholder="Contraseña"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
 
                 />

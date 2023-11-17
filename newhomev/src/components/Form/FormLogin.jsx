@@ -1,26 +1,25 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const FormLogin = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
-    });
+    const [Name, setName] = useState('')
+    const [password, setPassword] = useState('')
     
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Datos enviados:', formData);
-    };
     
+        if([Name, password].includes('')){
+            swal({
+                title: "Hay campos vacíos",
+                icon: "error",
+                button: "Aceptar"
+            });
+        }
+        console.log('Datos ingresados')
+    
+    };
     return (
     <>
             <div className="flex flex-col rounded-3xl justify-center items-center mt-14">
@@ -34,8 +33,9 @@ const FormLogin = () => {
                     <input
                     type="text"
                     name="username"
-                    value={formData.username}
-                    onChange={handleChange}
+                    placeholder="Nombre"
+                    value={Name}
+                    onChange={e => setName(e.target.value)}
                     className="rounded-xl mt-2 border py-3 px-3"
                     />
                 </label>
@@ -45,16 +45,19 @@ const FormLogin = () => {
                     <input
                     type="password"
                     name="password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    placeholder="Contraseña"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                     className="rounded-xl mt-2 border py-3 px-3"
     
                     />
                 </label>
                 <br />
-                <button type="submit" className="rounded-2xl bg-white mx-16 mt-4 p-2 text-center">
-                    Iniciar Sesión
-                </button>
+                <input
+                    type="submit" 
+                    value="Iniciar Sesión"
+                    className="rounded-2xl bg-white mx-16 mt-4 p-2 text-center"
+                />
             </form>
             <Link to="../register" className="text-center block">
                 ¿No tienes una cuenta? Registrate
