@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
+//import axios from 'axios';
 
 const FormRegister = () => {
     const [Name, setName] = useState('')
+    const [Apellido, setApellido] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
 const handleSubmit = (e) => {
     e.preventDefault();
 
-    if([Name, email, password].includes('')){
+    if([Name, Apellido, email, password].includes('')){
         swal({
             title: "Hay campos vacíos",
             icon: "error",
@@ -20,6 +22,22 @@ const handleSubmit = (e) => {
     console.log('Datos ingresados')
 
 };
+
+// crear usuario en la API
+/* try {
+    const {data} = await axios.post('url',
+    {Name, Apellido, email, password})
+
+    console.log(data)
+
+    setName('')
+    setApellido('')
+    setEmail('')
+    setPassword('')
+    
+} catch (error) {
+    console.log(error)
+}*/
 
 return (
 <>
@@ -37,6 +55,19 @@ return (
                 placeholder="Nombre"
                 value={Name}
                 onChange={e => setName(e.target.value)}
+                className="rounded-xl mt-2 border py-3 px-3"
+                />
+            </label>
+            <br />
+            <label
+                    className=" flex flex-col px-3 font-semibold">
+                Apellido:
+                <input
+                type="text"
+                name="username"
+                placeholder="Apellido"
+                value={Apellido}
+                onChange={e => setApellido(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
                 />
             </label>
