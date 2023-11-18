@@ -44,7 +44,7 @@ controller.Register = async (req, res) => {
         // Encriptar la contrasena 
         const encryptedPassword = await hashPassword(passwoord);
 
-        const register = await connection.query("INSERT INTO USER (first_name, last_name, email_address, passwoord, rol) VALUES (?, ?, ?, ?, ?)",
+        const register = await connection.query("INSERT INTO user (first_name, last_name, email_address, passwoord, rol) VALUES (?, ?, ?, ?, ?)",
         [first_name, last_name, email_address, encryptedPassword, ROLES.STANDAR_USER]);
 
         return res.status(201).json({ message: "Usuario creado con éxito "});

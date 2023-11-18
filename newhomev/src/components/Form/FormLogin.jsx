@@ -1,25 +1,43 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
+import axios from 'axios'
+//import LayoutAdmin from "./src/components/Administracion/LayoutAdmin";
+
 
 const FormLogin = () => {
-    const [Name, setName] = useState('')
-    const [password, setPassword] = useState('')
+    const [email_address, setEmail] = useState('')
+    const [passwoord, setPassword] = useState('')
     
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
     
-        if([Name, password].includes('')){
+        if([email_address, passwoord].includes('')){
             swal({
                 title: "Hay campos vacíos",
                 icon: "error",
                 button: "Aceptar"
             });
+            return
         }
+        // crear usuario en la API
+    try {
+        const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/signin`,
+        {email_address, passwoord})
+
+        console.log(data)
         console.log('Datos ingresados')
+
+        setEmail('')
+        setPassword('')
+
+
+    } catch (error) {
+        console.log(error)
+    }
     
-    };
+};
     return (
     <>
             <div className="flex flex-col rounded-3xl justify-center items-center mt-14">
@@ -29,13 +47,13 @@ const FormLogin = () => {
             <form onSubmit={handleSubmit} className="bg-[#e28743] my-10 shadow-lg rounded-lg py-6 px-6 flex flex-col w-2/5 h-1/2">
                 <label
                         className=" flex flex-col px-3 font-semibold">
-                    Nombre de usuario:
+                    Correo electrónico:
                     <input
-                    type="text"
+                    type="email"
                     name="username"
-                    placeholder="Nombre"
-                    value={Name}
-                    onChange={e => setName(e.target.value)}
+                    placeholder="Correo electrónico"
+                    value={email_address}
+                    onChange={e => setEmail(e.target.value)}
                     className="rounded-xl mt-2 border py-3 px-3"
                     />
                 </label>
@@ -46,7 +64,7 @@ const FormLogin = () => {
                     type="password"
                     name="password"
                     placeholder="Contraseña"
-                    value={password}
+                    value={passwoord}
                     onChange={e => setPassword(e.target.value)}
                     className="rounded-xl mt-2 border py-3 px-3"
     

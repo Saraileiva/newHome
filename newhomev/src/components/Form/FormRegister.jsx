@@ -1,43 +1,49 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import swal from 'sweetalert';
-//import axios from 'axios';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import swal from 'sweetalert'
+import axios from 'axios'
 
 const FormRegister = () => {
-    const [Name, setName] = useState('')
-    const [Apellido, setApellido] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [first_name, setName] = useState('')
+    const [last_name, setApellido] = useState('')
+    const [email_address, setEmail] = useState('')
+    const [passwoord, setPassword] = useState('')
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if([Name, Apellido, email, password].includes('')){
+    if([first_name, last_name, email_address, passwoord].includes('')){
         swal({
             title: "Hay campos vacíos",
             icon: "error",
             button: "Aceptar"
         });
+        return
     }
-    console.log('Datos ingresados')
+    // crear usuario en la API
+    try {
+        const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`,
+        {first_name, last_name, email_address, passwoord})
 
+        console.log(data)
+        console.log('Datos ingresados')
+
+        swal({
+            title: "¡Se ha creado exitosamente su cuenta!",
+            icon: "success",
+            button: "Aceptar"
+        })
+
+        setName('')
+        setApellido('')
+        setEmail('')
+        setPassword('')
+
+    } catch (error) {
+        console.log(error)
+    }
 };
 
-// crear usuario en la API
-/* try {
-    const {data} = await axios.post('url',
-    {Name, Apellido, email, password})
-
-    console.log(data)
-
-    setName('')
-    setApellido('')
-    setEmail('')
-    setPassword('')
-    
-} catch (error) {
-    console.log(error)
-}*/
 
 return (
 <>
@@ -53,7 +59,7 @@ return (
                 type="text"
                 name="username"
                 placeholder="Nombre"
-                value={Name}
+                value={first_name}
                 onChange={e => setName(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
                 />
@@ -66,7 +72,7 @@ return (
                 type="text"
                 name="username"
                 placeholder="Apellido"
-                value={Apellido}
+                value={last_name}
                 onChange={e => setApellido(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
                 />
@@ -78,7 +84,7 @@ return (
                 type="email"
                 name="email"
                 placeholder="Correo Electronico"
-                value={email}
+                value={email_address}
                 onChange={e => setEmail(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
 
@@ -91,7 +97,7 @@ return (
                 type="password"
                 name="password"
                 placeholder="Contraseña"
-                value={password}
+                value={passwoord}
                 onChange={e => setPassword(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
 
