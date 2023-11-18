@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
 const FormLogin = () => {
-    const [Name, setName] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     
     
     const handleSubmit = (e) => {
         e.preventDefault();
     
-        if([Name, password].includes('')){
+        if([email, password].includes('')){
             swal({
                 title: "Hay campos vacíos",
                 icon: "error",
@@ -29,13 +29,13 @@ const FormLogin = () => {
             <form onSubmit={handleSubmit} className="bg-[#e28743] my-10 shadow-lg rounded-lg py-6 px-6 flex flex-col w-2/5 h-1/2">
                 <label
                         className=" flex flex-col px-3 font-semibold">
-                    Nombre de usuario:
+                    Correo electrónico:
                     <input
-                    type="text"
-                    name="username"
-                    placeholder="Nombre"
-                    value={Name}
-                    onChange={e => setName(e.target.value)}
+                    type="email"
+                    name="email"
+                    placeholder=" Correo electrónico"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
                     className="rounded-xl mt-2 border py-3 px-3"
                     />
                 </label>

@@ -1,4 +1,3 @@
-import React from 'react'
 
   import { PiDogFill } from "react-icons/pi";
   import { GiDogBowl } from "react-icons/gi";
@@ -66,7 +65,7 @@ function AddPubli() {
           </div>
         </div>
       );
-    };
+    }
 
 
 

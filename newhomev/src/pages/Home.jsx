@@ -1,5 +1,5 @@
-import React from 'react'
-import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+//import React from 'react'
+//import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 
 
 const Home = () => {

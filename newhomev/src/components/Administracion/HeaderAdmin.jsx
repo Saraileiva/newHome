@@ -1,11 +1,10 @@
-import React from "react";
 import {
-  RiNotification3Line,
+  //RiNotification3Line,
   RiArrowDownSLine,
   RiSettings3Line,
   RiLogoutCircleRLine,
-  RiThumbUpLine,
-  RiChat3Line,
+  //RiThumbUpLine,
+  //RiChat3Line,
 } from "react-icons/ri";
 import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
