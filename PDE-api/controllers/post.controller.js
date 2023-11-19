@@ -8,7 +8,7 @@ const controller = {};
 controller.getAllPosts = async (req, res) => {
     try {
         const connection = await db.getConnection();
-        const result = await connection.query("SELECT publication_date, USER.email_address AS 'Publicated by', publication_tittle, publication_description, contact_information, DOG.dog_name, DOG.race FROM PUBLICATION JOIN DOG ON PUBLICATION.dog_id = DOG.dog_id JOIN USER ON PUBLICATION.user_id = USER.user_id WHERE PUBLICATION.hidden = FALSE");
+        const result = await connection.query("SELECT publication_date, USER.email_address AS 'Publicated by', publication_tittle, publication_description, contact_information, DOG.dog_name, DOG.race, email_contact, aditional_info FROM PUBLICATION JOIN DOG ON PUBLICATION.dog_id = DOG.dog_id JOIN USER ON PUBLICATION.user_id = USER.user_id WHERE PUBLICATION.hidden = FALSE");
 
         console.log(result);
 
@@ -29,7 +29,7 @@ controller.findByUserId = async (req, res) => {
         const { user_id } = req.body;
 
         const connection = await db.getConnection();
-        const searched = await connection.query('SELECT publication_date, USER.email_address AS "Publicated by", publication_tittle, publication_description, contact_information, DOG.dog_name, DOG.race FROM PUBLICATION JOIN DOG ON PUBLICATION.dog_id = DOG.dog_id JOIN USER ON PUBLICATION.user_id = USER.user_id WHERE USER.user_id = ? AND PUBLICATION.hidden = FALSE', 
+        const searched = await connection.query('SELECT publication_date, USER.email_address AS "Publicated by", publication_tittle, publication_description, contact_information, DOG.dog_name, DOG.race, email_contact, aditional_info FROM PUBLICATION JOIN DOG ON PUBLICATION.dog_id = DOG.dog_id JOIN USER ON PUBLICATION.user_id = USER.user_id WHERE USER.user_id = ? AND PUBLICATION.hidden = FALSE', 
         user_id);
 
         console.log(searched);
@@ -53,7 +53,7 @@ controller.findOneByDogId = async (req, res) => {
 
         //const id = req.USER.user_id;
         const connection = await db.getConnection();
-        const searched = await connection.query('SELECT publication_date, USER.email_address AS "Publicated by", publication_tittle, publication_description, contact_information, DOG.dog_name, DOG.race FROM PUBLICATION JOIN DOG ON PUBLICATION.dog_id = DOG.dog_id JOIN USER ON PUBLICATION.user_id = USER.user_id WHERE DOG.dog_id = ? AND PUBLICATION.hidden = FALSE', 
+        const searched = await connection.query('SELECT publication_date, USER.email_address AS "Publicated by", publication_tittle, publication_description, contact_information, DOG.dog_name, DOG.race, email_contact, aditional_info FROM PUBLICATION JOIN DOG ON PUBLICATION.dog_id = DOG.dog_id JOIN USER ON PUBLICATION.user_id = USER.user_id WHERE DOG.dog_id = ? AND PUBLICATION.hidden = FALSE', 
         dog_id);
         
         if(searched == "") {
@@ -71,7 +71,7 @@ controller.findOneByDogId = async (req, res) => {
 controller.create = async (req, res) => {
     try {
         //Obtener los campos del post
-        const { publication_tittle, publication_description, contact_information, dog_id } = req.body
+        const { publication_tittle, publication_description, contact_information, dog_id, email_contact, aditional_info } = req.body
 
         const user_id = req.user.user_id;
 
@@ -103,10 +103,10 @@ controller.create = async (req, res) => {
             return res.status(400).json({ error: "El perrito con el id proporcionado, ya ha sido publicado" });
         }
 
-        const create = await connection.query('INSERT INTO PUBLICATION (publication_tittle, publication_description, contact_information, user_id, dog_id) VALUES (?, ?, ?, ?, ?)', 
-        [publication_tittle, publication_description, contact_information, user_id, dog_id]);
+        const create = await connection.query('INSERT INTO PUBLICATION (publication_tittle, publication_description, contact_information, user_id, dog_id, email_contact, aditional_info) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+        [publication_tittle, publication_description, contact_information, user_id, dog_id, email_contact, aditional_info]);
 
-        return res.status(201).json({ message: "Post creado con exito" })
+        return res.status(201).json({ user_id, message: "Post creado con exito" })
     } catch (error) {
         debug({ error });
         return res.status(500).json({ error: "Error interno de servidor" });

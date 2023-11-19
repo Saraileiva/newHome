@@ -8,7 +8,7 @@ const controller = {}
 controller.getAllDogs = async (req, res) => {
     try {
         const connection = await db.getConnection();
-        const result = await connection.query("SELECT dog_name, race, dog_age, ocult AS 'Avaliable' FROM DOG");
+        const result = await connection.query("SELECT dog_name, race, dog_age, ocult AS 'Avaliable', sex, discapacity FROM DOG");
 
         console.log(result);
 
@@ -28,7 +28,7 @@ controller.findById = async (req, res) => {
         const { dog_id } = req.body;
 
         const connection = await db.getConnection();
-        const searched = await connection.query('SELECT dog_name, race, dog_age, ocult AS "Available" FROM DOG WHERE dog_id = ?', 
+        const searched = await connection.query('SELECT dog_name, race, dog_age, ocult AS "Avaliable", sex, discapacity FROM DOG WHERE dog_id = ?', 
         dog_id);
 
         console.log(searched);
@@ -47,11 +47,11 @@ controller.findById = async (req, res) => {
 controller.createDog = async (req, res) => {
     try {
         // Obtener datos del perro
-        const { dog_name, dog_age, race } = req.body;
+        const { dog_name, dog_age, race, discapacity, rescued, sex } = req.body;
 
         const connection = await db.getConnection();
-        const register = await connection.query("INSERT INTO DOG (dog_name, dog_age, race) VALUES (?, ?, ?)",
-        [dog_name, dog_age, race]);
+        const register = await connection.query("INSERT INTO DOG (dog_name, dog_age, race, discapacity, rescued, sex) VALUES (?, ?, ?, ?, ?, ?)",
+        [dog_name, dog_age, race, discapacity, rescued, sex]);
 
         return res.status(201).json({ register });
 

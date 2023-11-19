@@ -11,7 +11,7 @@ const controller = {}
 controller.getAllUsers = async (req, res) => {
     try {
         const connection = await db.getConnection();
-        const result = await connection.query("SELECT user_id, first_name, last_name, email_address, rol, hidden FROM USER");
+        const result = await connection.query("SELECT user_id, first_name, last_name, email_address, rol, hidden, country, address, cel_extension, cel_number FROM USER");
 
         console.log(result);
 
@@ -31,7 +31,7 @@ controller.findById = async (req, res) => {
         const { user_id } = req.body;
 
         const connection = await db.getConnection();
-        const searched = await connection.query('SELECT user_id, first_name, last_name, email_address, rol, hidden FROM USER WHERE user_id = ? AND hidden = FALSE', 
+        const searched = await connection.query('SELECT user_id, first_name, last_name, email_address, rol, hidden, country, address, cel_extension, cel_number FROM USER WHERE user_id = ? AND hidden = FALSE', 
         user_id);
 
         console.log(searched);
@@ -127,6 +127,24 @@ controller.deleteUser = async (req, res) => {
         debug(error);
         return res.status(500).json({ error: "Error inesperado" })
     }
+}
+
+controller.updateProfile = async (req, res) => {
+    try {
+        const { first_name, last_name, country, address, cel_extension, cel_number } = req.body;
+
+        const user_id = req.user.user_id;
+
+        const connection = await db.getConnection();
+
+        const update = await connection.query('UPDATE USER SET first_name = ?, last_name = ?, country = ?, address = ?, cel_extension = ?, cel_number = ? WHERE user_id = ?',
+        [first_name, last_name, country, address, cel_extension, cel_number, user_id]);
+        
+        res.status(200).json({ message: "Perfil actualizado con éxito! "});
+    }catch (error) {
+        debug(error);
+        return res.status(500).json({ error: "Ocurrio un error inesperado en el servidor" })
+    }    
 }
 
 module.exports = controller;

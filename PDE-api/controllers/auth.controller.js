@@ -30,7 +30,7 @@ const comparePassword = async (password, hash) => {
 controller.Register = async (req, res) => {
     try {
         // Obtener datos de usuario
-        const { first_name, last_name, email_address, passwoord} = req.body;
+        const { first_name, last_name, email_address, passwoord, country, address, cel_extension, cel_number} = req.body;
 
         // Verificar campos duplicados
         const connection = await db.getConnection();
@@ -44,8 +44,8 @@ controller.Register = async (req, res) => {
         // Encriptar la contrasena 
         const encryptedPassword = await hashPassword(passwoord);
 
-        const register = await connection.query("INSERT INTO user (first_name, last_name, email_address, passwoord, rol) VALUES (?, ?, ?, ?, ?)",
-        [first_name, last_name, email_address, encryptedPassword, ROLES.STANDAR_USER]);
+        const register = await connection.query("INSERT INTO USER (first_name, last_name, email_address, passwoord, rol, country, address, cel_extension, cel_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [first_name, last_name, email_address, encryptedPassword, ROLES.STANDAR_USER, country, address, cel_extension, cel_number]);
 
         return res.status(201).json({ message: "Usuario creado con éxito "});
 
