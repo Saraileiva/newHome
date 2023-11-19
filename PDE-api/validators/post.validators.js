@@ -17,7 +17,12 @@ validators.createPostValidator = [
         .isLength({ min: 20, max: 255 }).withMessage("El campo requiere como mínimo 20 caracteres y máximo de 255!"),
     body("dog_id")
         .notEmpty().withMessage("El campo no puede estar vacío!")
-        .isInt().withMessage("El campo debe de ser un valor entero!")
+        .isInt().withMessage("El campo debe de ser un valor entero!"),
+    body("email_contact")
+        .notEmpty().withMessage("El campo no puede estar vacío!")
+        .isEmail().withMessage("El campo debe de tener formato de correo example@example.com!"),
+    body("aditional_info")
+        .notEmpty().withMessage("El campo no puede estar vacío!")
 ]
 
 validators.findByUserId = [

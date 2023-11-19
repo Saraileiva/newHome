@@ -32,6 +32,13 @@ router.post("/update",
     userController.updateUserRol
 )
 
+router.post("/editProfile",
+    authentication,
+    userValidators.updateProfile,
+    runValidations,
+    userController.updateProfile
+)
+
 router.delete("/delete",
     authentication,
     authorization(ROLES.SYSADMIN),
