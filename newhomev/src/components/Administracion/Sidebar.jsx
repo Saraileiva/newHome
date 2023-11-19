@@ -17,6 +17,14 @@ import { MdLogout } from "react-icons/md";
 const Sidebar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
+
+  const handleLogout = () => {
+    // Eliminar el token al cerrar sesión
+    localStorage.removeItem('token');
+
+    // Redirigir a la página de inicio de sesión
+    window.location = '/';
+}
   return (
     <>
       <div
@@ -79,12 +87,12 @@ const Sidebar = () => {
           </ul>
         </div>
         <nav>
-          <Link
-            to="/"
+          <button 
+            type="button" onClick={handleLogout}
             className="flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-orange-200 transition-colors"
           >
             <MdLogout className="text-bold" /> Cerrar sesión
-          </Link>
+          </button>
         </nav>
       </div>
       <button

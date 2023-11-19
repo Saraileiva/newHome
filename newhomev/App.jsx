@@ -11,10 +11,15 @@ import Solicitudes from "./src/pages/Solicitudes";
 import LayoutSuperAd from "./src/components/Administracion/LayoutSuperAd";
 import AddPubli from "./src/pages/AddPubli";
 import Usuarios from "./src/pages/Usuarios";
-
+import { useLocalStorage } from "react-use";
+import PrivateRoute from "./src/components/PrivateRoute/PrivateRoute";
+import PropTypes from 'prop-types';
 
 
 function App() {
+
+    const [token] = useLocalStorage('token');
+
     return (
         <BrowserRouter>
             <Routes>
@@ -23,13 +28,14 @@ function App() {
                     <Route path="login" element={<FormLogin />}/>
                     <Route path="register" element={<FormRegister />}/>
                 </Route>
-             
-            <Route path="/profile-homepage" element={<LayoutAdmin />}>
-            <Route index element={<Homepage/>} />
-            <Route path="edit" element={<EditarPerfil/>}/>
-            <Route path="solicitudes" element={<Solicitudes/>}/>
-            </Route>
+            <Route element={<PrivateRoute canActivate={token} />}>
+                <Route path="/profile-homepage" element={<LayoutAdmin />}/>
+                <Route index element={<Homepage/>} />
+                <Route path="edit" element={<EditarPerfil/>}/>
+                <Route path="solicitudes" element={<Solicitudes/>}/>
 
+            </Route>
+            
             <Route path="/superadmin" element={<LayoutSuperAd/>}>
             <Route index element={<Homepage/>} />
             <Route path="editusers" element ={<Usuarios/>}/>
@@ -42,5 +48,10 @@ function App() {
         </BrowserRouter>
     )
 }
+PrivateRoute.propTypes = {
+    canActivate: PropTypes.elementType.isRequired,
+    RedirectPath: PropTypes.string.isRequired, 
+};
+
 
 export default App

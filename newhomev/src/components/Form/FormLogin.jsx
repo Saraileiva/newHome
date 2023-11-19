@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 const FormLogin = () => {
     const [email_address, setEmail] = useState('')
@@ -30,8 +30,7 @@ const FormLogin = () => {
         if (data) {
             localStorage.setItem('token', JSON.stringify(data.token));
             window.location = '/profile-homepage';
-        } 
-        if (localStorage == null){
+        } else {
             window.location = '/';
         }
 
@@ -40,6 +39,7 @@ const FormLogin = () => {
     }
 
 };
+
     return (
     <>
             <div className="flex flex-col rounded-3xl justify-center items-center mt-14">

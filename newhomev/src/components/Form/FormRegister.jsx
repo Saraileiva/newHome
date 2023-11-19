@@ -27,7 +27,7 @@ const handleSubmit = async (e) => {
     // crear usuario en la API
     try {
         const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`,
-        {first_name, last_name, email_address, passwoord})
+        {first_name, last_name, email_address, passwoord, country, address, cel_extension, cel_number})
 
         console.log(data)
         console.log('Datos ingresados')

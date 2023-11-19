@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar";
 
 
 const LayoutAdmin = () => {
-
   return (
         <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6">
       <Sidebar />
@@ -15,7 +14,7 @@ const LayoutAdmin = () => {
         </div>
       </div>
     </div>
-  )
+      ) 
 }
 
 export default LayoutAdmin;
