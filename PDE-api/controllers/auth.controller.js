@@ -30,7 +30,7 @@ const comparePassword = async (password, hash) => {
 controller.Register = async (req, res) => {
     try {
         // Obtener datos de usuario
-        const { first_name, last_name, email_address, passwoord} = req.body;
+        const { first_name, last_name, email_address, passwoord, country, address, cel_extension, cel_number} = req.body;
 
         // Verificar campos duplicados
         const connection = await db.getConnection();

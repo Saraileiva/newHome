@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import axios from 'axios'
-//import LayoutAdmin from "./src/components/Administracion/LayoutAdmin";
-
+import axios, { AxiosError } from 'axios'
 
 const FormLogin = () => {
     const [email_address, setEmail] = useState('')
     const [passwoord, setPassword] = useState('')
-    
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,16 +24,21 @@ const FormLogin = () => {
         {email_address, passwoord})
 
         console.log(data)
-        console.log('Datos ingresados')
+        console.log('Cuenta Validada con Token')
+        localStorage.setItem('token', data.token)
 
-        setEmail('')
-        setPassword('')
-
+        if (data) {
+            localStorage.setItem('token', JSON.stringify(data.token));
+            window.location = '/profile-homepage';
+        } 
+        if (localStorage == null){
+            window.location = '/';
+        }
 
     } catch (error) {
         console.log(error)
     }
-    
+
 };
     return (
     <>

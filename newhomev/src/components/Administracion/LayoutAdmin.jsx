@@ -1,12 +1,12 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import HeaderAdmin from "./HeaderAdmin";
 import Sidebar from "./Sidebar";
 
 
 const LayoutAdmin = () => {
+
   return (
-    <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6">
+        <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6">
       <Sidebar />
       <div className="xl:col-span-5">
         <HeaderAdmin />
@@ -15,7 +15,7 @@ const LayoutAdmin = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default LayoutAdmin;

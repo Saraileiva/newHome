@@ -8,11 +8,15 @@ const FormRegister = () => {
     const [last_name, setApellido] = useState('')
     const [email_address, setEmail] = useState('')
     const [passwoord, setPassword] = useState('')
+    const [country, setCountry] = useState('')
+    const [address, setAddress] = useState('')
+    const [cel_extension, setCelExtension] = useState('')
+    const [cel_number, setCelNumber] = useState('')
 
 const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if([first_name, last_name, email_address, passwoord].includes('')){
+    if([first_name, last_name, email_address, passwoord, country, address, cel_extension, cel_number].includes('')){
         swal({
             title: "Hay campos vacíos",
             icon: "error",
@@ -38,6 +42,10 @@ const handleSubmit = async (e) => {
         setApellido('')
         setEmail('')
         setPassword('')
+        setCountry('')
+        setAddress('')
+        setCelExtension()
+        setCelNumber()
 
     } catch (error) {
         console.log(error)
@@ -100,10 +108,61 @@ return (
                 value={passwoord}
                 onChange={e => setPassword(e.target.value)}
                 className="rounded-xl mt-2 border py-3 px-3"
-
                 />
             </label>
             <br />
+            
+            <label    
+                className=" flex flex-col px-3 font-semibold">
+                País:
+                <input
+                type="text"
+                name="country"
+                placeholder="País"
+                value={country}
+                onChange={e => setCountry(e.target.value)}
+                className="rounded-xl mt-2 border py-3 px-3"
+                />
+            </label>
+            <br />
+            <label
+                className=" flex flex-col px-3 font-semibold">
+                Dirección de residencia:
+                <input
+                type="text"
+                name="address"
+                placeholder="Dirección de residencia"
+                value={address}
+                onChange={e => setAddress(e.target.value)}
+                className="rounded-xl mt-2 border py-3 px-3"
+                />
+            </label>
+            <br />
+            <label
+                className=" flex flex-col px-3 font-semibold">
+                Extensión de tel:
+                <input
+                type="text"
+                name="extension"
+                placeholder="Tel. extensión"
+                value={cel_extension}
+                onChange={e => setCelExtension(e.target.value)}
+                className="rounded-xl mt-2 border py-3 px-3"
+                />
+            </label>
+            <br />
+            <label
+                className=" flex flex-col px-3 font-semibold">
+                Número de tel:
+                <input
+                type="text"
+                name="phone"
+                placeholder="Teléfono"
+                value={cel_number}
+                onChange={e => setCelNumber(e.target.value)}
+                className="rounded-xl mt-2 border py-3 px-3"
+                />
+            </label>
             <button type="submit" className="rounded-2xl bg-white mx-16 mt-4 p-2 text-center">
                 Registrar
             </button>
