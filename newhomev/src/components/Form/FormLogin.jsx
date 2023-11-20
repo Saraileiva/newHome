@@ -44,7 +44,7 @@ const FormLogin = () => {
             console.log(localStorage.getItem('token'))
             console.log(parseJwt(localStorage.getItem('token')));
 
-            //window.location = '/profile-homepage';
+        window.location = '/profile-homepage';
         } else {
             setLoginSuccesful(false)
         }
@@ -63,7 +63,7 @@ const FormLogin = () => {
 
 
     return (
-    <> {loginSuccesful ?  <LayoutAdmin />:
+    <> 
             <div className="flex flex-col rounded-3xl justify-center items-center mt-14">
                 <h2 className=" text-center pt-3 text-2xl font-semibold">
                 INICIAR SESIÓN
@@ -106,7 +106,7 @@ const FormLogin = () => {
             </Link>
         </div>
         
-    }</>
+    </>
         );
     }
     

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "./src/components/Main/Main";
 import FormLogin from "./src/components/Form/FormLogin"
 import FormRegister from "./src/components/Form/FormRegister";
 import Header from "./src/components/Header/Header";

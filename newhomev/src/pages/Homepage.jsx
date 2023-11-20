@@ -1,9 +1,9 @@
-import React, {useState, useEffect }from 'react'
-import axios from 'axios'
-import authService from '../../authService';
+//import React, {useState, useEffect }from 'react'
+//import axios from 'axios'
+//import authService from '../../authService';
 
 const Homepage = () => {
-  const [data, setData] = useState([]);
+  /*const [data, setData] = useState([]);
 
   useEffect(() => {
     // Obtiene el token de tu sistema de autenticación desde el almacenamiento local
@@ -32,21 +32,24 @@ const Homepage = () => {
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            {/* Agrega más encabezados según la estructura de tus datos */}
-          </tr>
+            {/* Agrega más encabezados según la estructura de tus datos */
+          /*</tr>
         </thead>
         <tbody>
           {data.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.nombre}</td>
-              {/* Agrega más celdas según la estructura de tus datos */}
+              {/* Agrega más celdas según la estructura de tus datos 
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </div>*/
+    return ( 
+      <h1> Hola home page</h1>
   );
+
 };
 
 export default Homepage;

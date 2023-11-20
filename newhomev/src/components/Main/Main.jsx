@@ -1,6 +1,5 @@
 import FormLogin from '../Form/FormLogin';
 import Header from '../Header/Header';
-import MainDesing from './MainDesign';
 
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
