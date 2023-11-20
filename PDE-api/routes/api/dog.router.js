@@ -24,7 +24,7 @@ router.get("/searchId",
 
 router.post("/create",
     authentication,
-    authorization(ROLES.ADMINISTRSTOR),
+    authorization(ROLES.SYSADMIN),
     dogValidators.createDog,
     runValidations,
     dogController.createDog

@@ -1,16 +1,28 @@
-import imgMain from '../../assets/imgmain.png';
+import FormLogin from '../Form/FormLogin';
+import Header from '../Header/Header';
+import MainDesing from './MainDesign';
 
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
+console.log(parseJwt(localStorage.getItem('token')));
+
+let tokenExistAndStillValid = (parseJwt(localStorage.getItem('token')).exp * 1000 > Date.now());
 const Main = () => {
     return (
         <>
-    <div className="flex justify-center bg-[#eab676] p-2 h-full w-full">
-        <figure className="flex justify-center">
-            <img src={imgMain} alt='' className="flex w-1/2 pt-5 pb-4"></img>
-        </figure>
-
+        {tokenExistAndStillValid ? <Header /> : <FormLogin />}
+    <div>
     </div>
 </>
     )
 }
+
 
 export default Main;

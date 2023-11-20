@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+/*import { Navigate, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({
@@ -16,4 +16,4 @@ PrivateRoute.propTypes = {
   RedirectPath: PropTypes.string.isRequired, 
 };
 
-export default PrivateRoute;
+export default PrivateRoute;*/

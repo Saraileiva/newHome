@@ -1,13 +1,25 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import axios from 'axios'
+import axios from 'axios';
+import LayoutAdmin from '../Administracion/LayoutAdmin';
 
 const FormLogin = () => {
     const [email_address, setEmail] = useState('')
     const [passwoord, setPassword] = useState('')
+    const [loginSuccesful, setLoginSuccesful] = useState(false);
+
     
     const handleSubmit = async (e) => {
+        function parseJwt (token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        
+            return JSON.parse(jsonPayload);
+        }
         e.preventDefault();
     
         if([email_address, passwoord].includes('')){
@@ -25,23 +37,33 @@ const FormLogin = () => {
 
         console.log(data)
         console.log('Cuenta Validada con Token')
-        localStorage.setItem('token', data.token)
 
-        if (data) {
-            localStorage.setItem('token', JSON.stringify(data.token));
-            window.location = '/profile-homepage';
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+            setLoginSuccesful(true)
+            console.log(localStorage.getItem('token'))
+            console.log(parseJwt(localStorage.getItem('token')));
+
+            //window.location = '/profile-homepage';
         } else {
-            window.location = '/';
+            setLoginSuccesful(false)
         }
 
+        const testToken = () => {
+            axios.post('url', { email_address, passwoord }, { headers : { 'Authorization' : `Bearer ${localStorage.getItem('token')}`}})
+        }
+        axios.get('url', {headers : { 'Authorization' : `Bearer ${localStorage.getItem('token')}`}})
+        //localStorage.getItem('token')
+        //console.log("hola mundo")
     } catch (error) {
-        console.log(error)
+        console.log("hola mundo")
     }
 
 };
 
+
     return (
-    <>
+    <> {loginSuccesful ?  <LayoutAdmin />:
             <div className="flex flex-col rounded-3xl justify-center items-center mt-14">
                 <h2 className=" text-center pt-3 text-2xl font-semibold">
                 INICIAR SESIÓN
@@ -84,7 +106,7 @@ const FormLogin = () => {
             </Link>
         </div>
         
-    </>
+    }</>
         );
     }
     
